@@ -1,11 +1,11 @@
-﻿namespace Sample0416
-{
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            for (int i = 0; i < 10; i++) {
+﻿namespace Sample0416 {
+    internal class Program {
+        static void Main(string[] args) {
+
+            int i = 0;
+            while (i < 10) {
                 Console.WriteLine("Hello, World!");
+                i++;
             }
         }
     }
