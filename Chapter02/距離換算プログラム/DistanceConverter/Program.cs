@@ -21,7 +21,7 @@ namespace DistanceConverter {
         static void PrintFeetToMeterList(int start, int stop) {
             for (int feet = start; feet <= stop; feet++) {
                 double meter = FeetConverter.ToMeter(feet);
-                Console.WriteLine($"{feet}ft = {meter:0.0000}m");
+                Console.WriteLine($"{feet}ft = {meter:00.0000}m");
             }
         }
 
