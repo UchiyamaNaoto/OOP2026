@@ -46,15 +46,30 @@ namespace Exercise03 {
         }
 
         private static void Exercise4(string text) {
-
+            var count = text.Split(' ').Length;
+            Console.WriteLine($"単語数:{count}");
         }
 
         private static void Exercise5(string text) {
-
+            text.Split(' ').Where(s => s.Length <= 4).ToList().ForEach(Console.WriteLine);
+            
         }
 
         //アルファベットの数をカウントして表示する
         private static void Exercise6(string text) {
+
+
+            //辞書（ディクショナリ）を使った集計
+
+
+
+            //配列を用いた集計
+
+
+
+            //'a'から順にカウントして集計
+
+
 
         }
     }
