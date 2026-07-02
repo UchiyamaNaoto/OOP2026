@@ -37,7 +37,7 @@
             var query = abbrs.GetAll().Where(x => x.Key.Length == 3);
             foreach (var item in query) {
                 Console.WriteLine("{0}={1}", item.Key, item.Value);
-            }
+            } 
         }
     }
 }
