@@ -134,10 +134,7 @@
         //          New Delhi : 9文字
         //          Hong Kong : 9文字】
         private static void Exercise09(List<string> cities) {
-            var citiesCount = cities.Select(c => new { c, c.Length }).OrderBy(c => c.Length);
-            foreach (var city in citiesCount) {
-                Console.WriteLine($"{city.c} : {city.Length}文字");
-            }
+        
         }
 
         //問題１０　６文字の都市名を表示
@@ -145,7 +142,7 @@
         //        【London
         //          Berlin】
         private static void Exercise10(List<string> cities) {
-            cities.Where(c => c.Length == 6).ToList().ForEach(Console.WriteLine);
+        
         }
     }
 }
