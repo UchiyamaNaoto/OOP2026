@@ -35,10 +35,7 @@ public class Abbreviations {
     public int Count => _dict.Count;
 
     // 8.2.2
-    public bool Remove(string abb) {
-
-
-    } 
+    public bool Remove(string abb) => _dict.Remove(abb);
 
 
     // Dictionary<TKey, TValue>は、

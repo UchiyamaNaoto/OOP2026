@@ -12,8 +12,8 @@
 
             // 8.2.3 (Countの呼び出し例)
             // 上のAddメソッドで、２つのオブジェクトを追加しているので、読み込んだ単語数+2が、Countの値になる。
+            Console.WriteLine("追加後の件数：" + abbrs.Count); 
 
-      
 
 
 
@@ -21,10 +21,9 @@
             Console.WriteLine();    //改行
 
             // 8.2.3 (Removeの呼び出し例)
-
-
-
-
+            if (abbrs.Remove("NPT")) {
+                Console.WriteLine("削除しました");
+            }
 
 
             // すでに削除してあるので、falseが返る
@@ -35,12 +34,10 @@
 
             // 8.2.4
             // 新たなGetAllメソッドを追加済みなので、使用してLINQで処理を行う
-
-
-
-
-
-
+            var query = abbrs.GetAll().Where(x => x.Key.Length == 3);
+            foreach (var item in query) {
+                Console.WriteLine("{0}={1}", item.Key, item.Value);
+            }
         }
     }
 }
