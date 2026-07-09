@@ -1,3 +1,6 @@
+using System;
+using System.Globalization;
+
 namespace Section01 {
     public partial class Form1 : Form {
         public Form1() {
@@ -5,43 +8,64 @@ namespace Section01 {
         }
 
         private void btGet_Click(object sender, EventArgs e) {
-            DateTime dt1 = dtpDate.Value;
+            DateTime date = dtpDate.Value;
+            tbOut.Text = date.AddDays((double)nudDay.Value).ToString();
+        }
 
-            if(DateTime.IsLeapYear(dt1.Year)) {
-                tbOut.Text = "Ç§ÇÈÇ§îNÇ≈Ç∑";
-            } else {
-                tbOut.Text = "Ç§ÇÈÇ§îNÇ≈ÇÕÇ†ÇËÇ‹ÇπÇÒ";
+        private void btBirthCalc_Click(object sender, EventArgs e) {
+            DateTime birth = dtpBirth.Value.Date;     //ê∂Ç‹ÇÍÇΩì˙ït
+            DateTime today = DateTime.Today;    //ç°ì˙ÇÃì˙ït
+
+            //int age = today.Year - birth.Year;
+            //if(today < birth.AddYears(age)) {
+            //    age--;
+            //}
+
+            tbOut.Text = $"Ç†Ç»ÇΩÇÕ{GetAge(birth, today)}çŒÇ≈Ç∑";
+
+            TimeSpan ts = today - birth;
+            tbOut2.Text = $"ê∂Ç‹ÇÍÇƒÇ©ÇÁ{ts.TotalHours}ì˙ñ⁄Ç≈Ç∑";
+
+            var culture = new CultureInfo("ja-JP");
+            culture.DateTimeFormat.Calendar = new JapaneseCalendar();
+            var dayOfWeek = culture.DateTimeFormat.GetDayName(birth.DayOfWeek);
+
+            tbOut3.Text = $"ê∂Ç‹ÇÍÇΩ{birth.Month}åé{birth.Day}ì˙ÇÕëÊ{NthWeek(birth)}èTÇÃ{dayOfWeek}Ç≈Ç∑";
+
+
+            //ç°îNÇÃíaê∂ì˙ÇçÏê¨Ç∑ÇÈ
+            DateTime thisYearBirthday = new DateTime(today.Year, birth.Month, birth.Day);
+
+            //ä˘Ç…íaê∂ì˙Ç™âﬂÇ¨ÇΩÇ©ÅH
+            if(thisYearBirthday < today) {
+                //óàîNÇÃíaê∂ì˙ÇçÏê¨Ç∑ÇÈ
+                thisYearBirthday = thisYearBirthday.AddYears(1);
             }
 
-            switch (dt1.DayOfWeek) {
-                case DayOfWeek.Saturday:
-                    tbOut.Text = "ç°ì˙ÇÕìyójì˙Ç≈Ç∑";
-                    break;
+            var span = thisYearBirthday - today;
 
-                case DayOfWeek.Sunday:
-                    tbOut.Text = "ç°ì˙ÇÕì˙ójì˙Ç≈Ç∑";
-                    break;
-
-                case DayOfWeek.Monday:
-                    tbOut.Text = "ç°ì˙ÇÕåéójì˙Ç≈Ç∑";
-                    break;
-
-                case DayOfWeek.Tuesday:
-                    tbOut.Text = "ç°ì˙ÇÕâŒójì˙Ç≈Ç∑";
-                    break;
-
-                case DayOfWeek.Wednesday:
-                    tbOut.Text = "ç°ì˙ÇÕêÖójì˙Ç≈Ç∑";
-                    break;
-
-                case DayOfWeek.Thursday:
-                    tbOut.Text = "ç°ì˙ÇÕñÿójì˙Ç≈Ç∑";
-                    break;
-
-                case DayOfWeek.Friday:
-                    tbOut.Text = "ç°ì˙ÇÕã‡ójì˙Ç≈Ç∑";
-                    break;
+            if (span.Days == 0) {
+                tbOut4.Text = "íaê∂ì˙ÇÕç°ì˙Ç≈Ç∑";
+            } else {
+                tbOut4.Text = $"íaê∂ì˙Ç‹Ç≈Ç†Ç∆{span.Days}ì˙Ç≈Ç∑";
             }
         }
+
+        //îNóÓÇãÅÇﬂÇÈÉÅÉ\ÉbÉh
+        static int GetAge(DateTime birthday, DateTime targetDay) {
+            var age = targetDay.Year - birthday.Year;
+            if (targetDay < birthday.AddYears(age)) {
+                age--;
+            }
+            return age;
+        }
+        //éwíËÇµÇΩì˙Ç™ëÊâΩèTÇ©ãÅÇﬂÇÈ
+        static int NthWeek(DateTime date) {
+            var firstDay = new DateTime(date.Year, date.Month, 1);
+            var firstDayOfWeek = (int)(firstDay.DayOfWeek);
+            return (date.Day + firstDayOfWeek - 1) / 7 + 1;
+        }
+
+
     }
 }
