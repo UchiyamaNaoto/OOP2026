@@ -30,7 +30,7 @@ namespace Exercise01 {
 
             var year = int.Parse(dateTime.ToString("yy", culture));
             var str2 = string.Format($"{cul}{year,2}”N{dateTime.Month,2}ŒŽ{dateTime.Day,2}“ú({dayOfWeek})");
-            Console.WriteLine(str2);
+            tbOut3.Text = str2;
         }
     }
 }
