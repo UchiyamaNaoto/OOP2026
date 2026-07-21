@@ -59,9 +59,9 @@
             終了ToolStripMenuItem = new ToolStripMenuItem();
             ヘルプHToolStripMenuItem = new ToolStripMenuItem();
             このアプリについてToolStripMenuItem = new ToolStripMenuItem();
-            statusStrip1 = new StatusStrip();
-            tsslbMessage = new ToolStripStatusLabel();
             ofdPicFileOpen = new OpenFileDialog();
+            tsslbMessage = new ToolStripStatusLabel();
+            statusStrip1 = new StatusStrip();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecords).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pbPicture).BeginInit();
@@ -227,6 +227,8 @@
             // 
             // dgvRecords
             // 
+            dgvRecords.AllowUserToAddRows = false;
+            dgvRecords.AllowUserToDeleteRows = false;
             dgvRecords.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvRecords.Location = new Point(117, 431);
             dgvRecords.MultiSelect = false;
@@ -300,6 +302,7 @@
             btDeletePicture.TabIndex = 6;
             btDeletePicture.Text = "削除";
             btDeletePicture.UseVisualStyleBackColor = true;
+            btDeletePicture.Click += btDeletePicture_Click;
             // 
             // btAddRecord
             // 
@@ -325,6 +328,7 @@
             btModifyRecord.TabIndex = 7;
             btModifyRecord.Text = "修正";
             btModifyRecord.UseVisualStyleBackColor = false;
+            btModifyRecord.Click += btModifyRecord_Click;
             // 
             // btDeleteRecord
             // 
@@ -337,6 +341,7 @@
             btDeleteRecord.TabIndex = 8;
             btDeleteRecord.Text = "削除";
             btDeleteRecord.UseVisualStyleBackColor = false;
+            btDeleteRecord.Click += btDeleteRecord_Click;
             // 
             // pbPicture
             // 
@@ -412,23 +417,24 @@
             このアプリについてToolStripMenuItem.Size = new Size(164, 22);
             このアプリについてToolStripMenuItem.Text = "このアプリについて...";
             // 
-            // statusStrip1
+            // ofdPicFileOpen
             // 
-            statusStrip1.Items.AddRange(new ToolStripItem[] { tsslbMessage });
-            statusStrip1.Location = new Point(0, 733);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(856, 22);
-            statusStrip1.TabIndex = 11;
-            statusStrip1.Text = "statusStrip1";
+            ofdPicFileOpen.FileName = "openFileDialog1";
             // 
             // tsslbMessage
             // 
             tsslbMessage.Name = "tsslbMessage";
             tsslbMessage.Size = new Size(0, 17);
             // 
-            // ofdPicFileOpen
+            // statusStrip1
             // 
-            ofdPicFileOpen.FileName = "openFileDialog1";
+            statusStrip1.Items.AddRange(new ToolStripItem[] { tsslbMessage });
+            statusStrip1.Location = new Point(0, 733);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(856, 22);
+            statusStrip1.SizingGrip = false;
+            statusStrip1.TabIndex = 11;
+            statusStrip1.Text = "statusStrip1";
             // 
             // Form1
             // 
@@ -457,9 +463,12 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "Form1";
             Text = "試乗レポート管理システム";
+            Load += Form1_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRecords).EndInit();
@@ -510,8 +519,8 @@
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem ヘルプHToolStripMenuItem;
         private ToolStripMenuItem このアプリについてToolStripMenuItem;
-        private StatusStrip statusStrip1;
-        private ToolStripStatusLabel tsslbMessage;
         private OpenFileDialog ofdPicFileOpen;
+        private ToolStripStatusLabel tsslbMessage;
+        private StatusStrip statusStrip1;
     }
 }
