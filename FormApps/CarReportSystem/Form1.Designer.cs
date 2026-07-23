@@ -230,13 +230,14 @@
             dgvRecords.AllowUserToAddRows = false;
             dgvRecords.AllowUserToDeleteRows = false;
             dgvRecords.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvRecords.Location = new Point(117, 431);
+            dgvRecords.Location = new Point(123, 431);
             dgvRecords.MultiSelect = false;
             dgvRecords.Name = "dgvRecords";
             dgvRecords.ReadOnly = true;
             dgvRecords.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvRecords.Size = new Size(719, 292);
             dgvRecords.TabIndex = 4;
+            dgvRecords.SelectionChanged += dgvRecords_SelectionChanged;
             dgvRecords.Click += dgvRecords_Click;
             // 
             // tbReport
