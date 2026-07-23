@@ -41,7 +41,7 @@ namespace CarReportSystem {
             //入力履歴を登録
             SetCbAuthor(cbAuthor.Text);
             SetCbCarName(cbCarName.Text);
-            
+
             dgvRecords.CurrentRow.Selected = false; //セルの選択を解除する
             ImputItemsUpdate(); //データグリッドビューを更新したら呼ぶメソッド
         }
@@ -163,7 +163,7 @@ namespace CarReportSystem {
         private void dgvRecords_SelectionChanged(object sender, EventArgs e) {
             if ((dgvRecords.CurrentRow is null)
                     || (!dgvRecords.CurrentRow.Selected)) return;
-
+            
             dtpDate.Value = (DateTime)dgvRecords.CurrentRow.Cells["Date"].Value;
             cbAuthor.Text = (string)dgvRecords.CurrentRow.Cells["Author"].Value;
             SetRadioButtonMaker((MakerGroup)dgvRecords.CurrentRow.Cells["Meker"].Value);
@@ -172,6 +172,16 @@ namespace CarReportSystem {
             pbPicture.Image = (Image)dgvRecords.CurrentRow.Cells["Picture"].Value;
 
             ImputItemsUpdate(); //データグリッドビューを更新したら呼ぶメソッド
+        }
+
+        private void 終了ToolStripMenuItem_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (cdColor.ShowDialog() == DialogResult.OK) {
+                BackColor = cdColor.Color;
+            }
         }
     }
 }
