@@ -1,4 +1,6 @@
 using System.ComponentModel;
+using System.Xml;
+using System.Xml.Serialization;
 using static CarReportSystem.CarReport;
 
 namespace CarReportSystem {
@@ -6,6 +8,9 @@ namespace CarReportSystem {
 
         //カーレポート管理用リスト
         BindingList<CarReport> listCarReports = new BindingList<CarReport>();
+
+        //設定クラスのオブジェクトを生成
+        Settings settings = new Settings();
 
         public Form1() {
             InitializeComponent();
@@ -135,12 +140,12 @@ namespace CarReportSystem {
         }
         private void btModifyRecord_Click(object sender, EventArgs e) {
 
-            if(dgvRecords.SelectedRows.Count == 0) {
+            if (dgvRecords.SelectedRows.Count == 0) {
                 tsslbMessage.Text = "修正するレポートを選択してください";
                 return;
             }
 
-            if (String.IsNullOrWhiteSpace(cbAuthor.Text) 
+            if (String.IsNullOrWhiteSpace(cbAuthor.Text)
                     || String.IsNullOrWhiteSpace(cbCarName.Text)) {
                 tsslbMessage.Text = "記録者、または車名が未入力です";
                 return;
@@ -162,7 +167,7 @@ namespace CarReportSystem {
         }
 
         private void dgvRecords_SelectionChanged(object sender, EventArgs e) {
-          
+
             if ((dgvRecords.CurrentRow?.DataBoundItem is not CarReport carReport)
                     || (!dgvRecords.CurrentRow.Selected)) return;
 
@@ -170,7 +175,7 @@ namespace CarReportSystem {
             cbAuthor.Text = carReport.Author;
             SetRadioButtonMaker(carReport.Maker);
             cbCarName.Text = carReport.CarName;
-           tbReport.Text = carReport.Report;
+            tbReport.Text = carReport.Report;
             pbPicture.Image = carReport.Picture;
 
             InputItemsUpdate(); //データグリッドビューを更新したら呼ぶメソッド
@@ -183,6 +188,17 @@ namespace CarReportSystem {
         private void 色設定ToolStripMenuItem_Click(object sender, EventArgs e) {
             if (cdColor.ShowDialog() == DialogResult.OK) {
                 BackColor = cdColor.Color;
+            }
+        }
+
+        //フォームが閉じたら呼ばれるイベントハンドラ
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e) {
+            //設定ファイルへ色情報を保存する処理（シリアル化）
+            //P284以降を参考にする（ファイル名：setting.xml）
+
+            using (var writer = XmlWriter.Create("setting.xml")) {
+                var serializer = new XmlSerializer(settings.GetType());
+                serializer.Serialize(writer, settings);
             }
         }
     }
