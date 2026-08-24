@@ -269,9 +269,15 @@ namespace CarReportSystem {
                         listCarReports = (BindingList<CarReport>)bf.Deserialize(fs);
                         dgvRecords.DataSource = listCarReports;
                     }
+                    //コンボボックスの履歴をすべて消す
+                    cbAuthor.Items.Clear();
+                    cbCarName.Items.Clear();
 
-
-
+                    //コンボボックスの履歴を再登録
+                    foreach (var report in listCarReports) {
+                        SetCbAuthor(report.Author);
+                        SetCbCarName(report.CarName);
+                    }
                 }
                 catch (Exception ex) {
                     tsslbMessage.Text = "ファイル読み出しエラー";
