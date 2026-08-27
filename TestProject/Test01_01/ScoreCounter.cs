@@ -7,7 +7,7 @@
             _score = ReadScore(filePath);
         }
 
-        //メソッドの概要： 
+        //メソッドの概要：
         private static IEnumerable<Student> ReadScore(string filePath) {
             var sales = new List<Student>();
             string[] lines = File.ReadAllLines(filePath);
@@ -23,7 +23,7 @@
             return sales;
         }
 
-        //メソッドの概要： 
+        //メソッドの概要：
         public IDictionary<string, int> GetPerStudentScore() {
             var dict = new Dictionary<string, int>();
             foreach (var score in _score) {
