@@ -13,6 +13,7 @@ internal static class Program
             // products.db が存在しない場合は作成され
             // Productsテーブルも存在しない場合だけ作成される
             Database.Initialize();
+            
             Application.Run(new Form1());
         }
         catch (Exception ex)
