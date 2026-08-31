@@ -17,6 +17,6 @@ public class Product
     [DisplayName("‰¿Ši")]
     public int Price { get; set; }
 
-    //TEST
+    //test
 }
 
