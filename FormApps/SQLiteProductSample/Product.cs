@@ -12,7 +12,7 @@ public class Product
     //商品名
     [DisplayName("商品名")]
     public string Name { get; set; } = string.Empty;
-
+    //テスト
     //商品価格
     [DisplayName("価格")]
     public int Price { get; set; }
