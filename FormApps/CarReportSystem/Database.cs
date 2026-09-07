@@ -1,7 +1,7 @@
 
 using Microsoft.Data.Sqlite;
 
-namespace SQLiteProductSample;
+namespace CarReportSystem;
 
 // SQLiteデータベースへの接続と初期化を担当するクラス
 public static class Database
