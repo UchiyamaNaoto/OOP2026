@@ -1,5 +1,6 @@
 using Microsoft.Data.Sqlite;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.Xml.Linq;
 
 namespace CarReportSystem;
@@ -9,9 +10,9 @@ namespace CarReportSystem;
 public class CarReportRepository
 {
     // 全商品を取得する。Read（SELECT）に相当する
-    public List<Product> GetAll() {
+    public List<CarReport> GetAll() {
 
-        var products = new List<Product>();
+        var products = new List<CarReport>();
 
         using var connection = Database.GetConnection();
         connection.Open();
@@ -31,10 +32,12 @@ public class CarReportRepository
         using var reader = command.ExecuteReader();
 
         while (reader.Read()) {
-            products.Add(new Product {
-                Id = reader.GetInt32(0),    // 0列目: Id
-                Name = reader.GetString(1), // 1列目: Name
-                Price = reader.GetInt32(2)  // 2列目: Price
+            products.Add(new CarReport {
+
+
+
+
+
             });
         }
         return products;
@@ -74,7 +77,7 @@ public class CarReportRepository
         return Convert.ToInt32((long)result);
     }
 
-    public void Update(Product product) {
+    public void Update(CarReport product) {
         // 接続オブジェクトを生成する。
         using var connection = Database.GetConnection();
         connection.Open();
@@ -88,8 +91,7 @@ public class CarReportRepository
             WHERE Id = $id;
             """;
 
-        command.Parameters.AddWithValue("$name", product.Name);
-        command.Parameters.AddWithValue("$price", product.Price);
+
         command.Parameters.AddWithValue("id", product.Id);
 
         // 更新件数が0なら対象が存在しない
@@ -112,6 +114,24 @@ public class CarReportRepository
 
         if (command.ExecuteNonQuery() == 0)
             throw new InvalidOperationException("削除対象の商品が見つかりませんでした。");
+    }
+
+    // ImageをSQLiteへ保存できるbyte[]へ変換する
+    private static byte[]? ImageToBytes(Image? image) {
+        if (image is null) return null;
+
+        using var stream = new MemoryStream();
+        // DBへはPNG形式で保存
+        image.Save(stream, ImageFormat.Png);
+        return stream.ToArray();
+    }
+
+    // SQLiteのBLOB（byte[]）をImageへ変換する
+    private static Image BytesToImage(byte[] data) {
+        using var stream = new MemoryStream(data);
+        using var image = Image.FromStream(stream);
+        // MemoryStream破棄後も利用できるようBitmapとしてコピーする。
+        return new Bitmap(image);
     }
 
 }
