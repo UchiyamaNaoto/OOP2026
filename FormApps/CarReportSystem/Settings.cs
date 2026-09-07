@@ -51,6 +51,7 @@ namespace CarReportSystem {
         public int MainFormBackColor { get; set; }
     }
 
-    ///////////////////////////
+    ////////////
+    /////////////////////////////////
 
 }
