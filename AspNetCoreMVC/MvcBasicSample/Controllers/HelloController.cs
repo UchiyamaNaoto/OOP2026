@@ -16,7 +16,47 @@ public class HelloController : Controller {
             {
                 Name = "紅茶", // 2 件目の商品名
                 Price = 450 // 2 件目の価格
-            }
+            },
+            new Product
+            {
+                Name = "ハンバーガー", // 1 件目の商品名
+                Price = 500 // 1 件目の価格
+            },
+            new Product
+            {
+                Name = "紅茶", // 2 件目の商品名
+                Price = 450 // 2 件目の価格
+            },
+            new Product
+            {
+                Name = "ハンバーガー", // 1 件目の商品名
+                Price = 500 // 1 件目の価格
+            },
+            new Product
+            {
+                Name = "紅茶", // 2 件目の商品名
+                Price = 450 // 2 件目の価格
+            },
+            new Product
+            {
+                Name = "ハンバーガー", // 1 件目の商品名
+                Price = 500 // 1 件目の価格
+            },
+            new Product
+            {
+                Name = "紅茶", // 2 件目の商品名
+                Price = 450 // 2 件目の価格
+            },
+            new Product
+            {
+                Name = "ハンバーガー", // 1 件目の商品名
+                Price = 500 // 1 件目の価格
+            },
+            new Product
+            {
+                Name = "紅茶", // 2 件目の商品名
+                Price = 450 // 2 件目の価格
+            },
         };
         return View(products); // 商品の一覧をView へ渡す
     }
