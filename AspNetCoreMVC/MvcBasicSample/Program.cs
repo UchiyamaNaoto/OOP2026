@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
 //******
 // DefaultConnection ‚Æ‚¢‚¤–¼‘O‚ÌÚ‘±•¶š—ñ‚ğæ“¾‚·‚é
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Ú‘±•¶š—ñ‚ª‚ ‚è‚Ü‚¹‚ñ");
