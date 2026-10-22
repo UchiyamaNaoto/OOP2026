@@ -23,7 +23,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            folderBrowserDialog1 = new FolderBrowserDialog();
             SuspendLayout();
+            // 
+            // folderBrowserDialog1
+            // 
+            folderBrowserDialog1.HelpRequest += folderBrowserDialog1_HelpRequest;
             // 
             // AboutApp
             // 
@@ -36,5 +41,7 @@
         }
 
         #endregion
+
+        private FolderBrowserDialog folderBrowserDialog1;
     }
 }
