@@ -13,6 +13,8 @@ public class ConverterFactory {
         new FeetConverter(),
         new YardConverter(),
         new InchConverter(),
+        new MileConverter(),
+        new KilometerConverter(),
     };
 
     public static ConverterBase? GetInstance(string name) =>
