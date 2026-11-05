@@ -1,22 +1,239 @@
-html {
-  font-size: 14px;
+
+/* =========================================
+   BLACK DINING
+   高級洋食レストランデザイン
+========================================= */
+
+:root {
+    --main-black: #111111;
+    --sub-black: #1b1b1b;
+    --card-black: #242424;
+    --light-black: #303030;
+    --gold: #c5a46d;
+    --white: #ffffff;
+    --light-gray: #cccccc;
+    --text-gray: #999999;
+    --border-color: #3b3b3b;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* 全体 */
 body {
-  margin-bottom: 60px;
+    background-color: var(--main-black);
+    color: var(--white);
+    font-family: "Noto Sans JP", "Yu Gothic", sans-serif;
+}
+
+/* ナビゲーション */
+.navbar {
+    background-color: #080808 !important;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+    color: var(--gold) !important;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.navbar .nav-link {
+    color: var(--light-gray) !important;
+    transition: 0.3s;
+}
+
+    .navbar .nav-link:hover {
+        color: var(--gold) !important;
+    }
+
+/* 見出し */
+h1, h2, h3, h4, h5 {
+    color: var(--white);
+    font-weight: 700;
+}
+
+h1 {
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+h2 {
+    border-left: 4px solid var(--gold);
+    padding-left: 12px;
+    margin-bottom: 20px;
+}
+
+/* カード */
+.card {
+    background-color: var(--card-black);
+    color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.35);
+    transition: 0.25s;
+}
+
+    .card:hover {
+        transform: translateY(-3px);
+        border-color: var(--gold);
+    }
+
+.card-header {
+    background-color: var(--sub-black);
+    color: var(--gold);
+    border-bottom: 1px solid var(--border-color);
+    padding: 15px 20px;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 22px;
+}
+
+/* ボタン共通 */
+.btn {
+    border-radius: 6px;
+    padding: 10px 22px;
+    font-weight: 600;
+    transition: 0.25s;
+}
+
+/* メインボタン */
+.btn-primary {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: #111111;
+}
+
+    .btn-primary:hover {
+        background-color: #dfc18a;
+        border-color: #dfc18a;
+        color: #111111;
+    }
+
+/* 成功ボタン */
+.btn-success {
+    background-color: #343434;
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+    .btn-success:hover {
+        background-color: var(--gold);
+        color: #111111;
+    }
+
+/* アウトラインボタン */
+.btn-outline-primary {
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+    .btn-outline-primary:hover {
+        background-color: var(--gold);
+        color: #111111;
+    }
+
+/* 入力フォーム */
+.form-control,
+.form-select {
+    background-color: #303030;
+    color: var(--white);
+    border: 1px solid #555555;
+    border-radius: 6px;
+    padding: 11px 14px;
+}
+
+    .form-control:focus,
+    .form-select:focus {
+        background-color: #303030;
+        color: var(--white);
+        border-color: var(--gold);
+        box-shadow: 0 0 0 0.2rem rgba(197,164,109,0.2);
+    }
+
+    .form-control::placeholder {
+        color: #999999;
+    }
+
+/* テーブル */
+.table {
+    color: var(--white);
+    --bs-table-bg: var(--card-black);
+    --bs-table-color: var(--white);
+    --bs-table-border-color: var(--border-color);
+    --bs-table-hover-bg: #353535;
+    --bs-table-hover-color: var(--white);
+}
+
+    .table thead th {
+        background-color: #080808;
+        color: var(--gold);
+        border-color: var(--border-color);
+        padding: 15px;
+    }
+
+    .table tbody td {
+        padding: 13px;
+        vertical-align: middle;
+    }
+
+/* バッジ */
+.badge {
+    border-radius: 5px;
+    padding: 7px 12px;
+}
+
+/* リンク */
+a {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #e5ca96;
+    }
+
+/* 区切り線 */
+hr {
+    border-color: var(--border-color);
+    opacity: 1;
+}
+
+/* フッター */
+footer {
+    background-color: #080808;
+    color: var(--light-gray);
+    padding: 25px 0;
+    margin-top: 50px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* スマートフォン */
+@media (max-width: 768px) {
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .table {
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+    }
 }
