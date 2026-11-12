@@ -1,16 +1,28 @@
 ﻿using Microsoft.AspNetCore.Mvc;         // Controller を使用
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;    // EF Core の非同期処理を使用
+using Microsoft.Extensions.Logging;
 using SelfOrderSystem.Data;             // AppDbContext を使用
+using SelfOrderSystem.Hubs;
 using SelfOrderSystem.Models;
+using SelfOrderSystem.Services;
 
 namespace SelfOrderSystem.Controllers;
 
 public class StaffController : Controller {
 
     private readonly AppDbContext _db; // DB への接続を担当
+    private readonly IHubContext<StaffOrdersHub> _hubContext;
+    private readonly ILogger<StaffController> _logger;
 
-    public StaffController(AppDbContext db) {
-        _db = db; // DI で受け取ったものを保存
+
+    // 既存のStaffController コンストラクタを置換
+    public StaffController(AppDbContext db,
+                        IHubContext<StaffOrdersHub> hubContext,
+                        ILogger<StaffController> logger) {
+        _db = db;                       // 既存のDB 操作
+        _hubContext = hubContext;       // SignalR で通知
+        _logger = logger;               // 通知エラーを記録
     }
 
     [HttpGet] // 注文一覧を表示するGET リクエスト
@@ -50,6 +62,20 @@ public class StaffController : Controller {
             return RedirectToAction(nameof(Index));
         }
         await _db.SaveChangesAsync(); // 変更をDB へ保存
+
+        try {
+            // この注文を見ているお客様だけに通知
+            await _hubContext.Clients.Group($"order-{order.PublicId:N}")
+                                    .SendAsync("OrderStatusChanged");
+            
+            // 他の店舗画面にも一覧変更を通知
+            await _hubContext.Clients.All.SendAsync("OrdersChanged");
+        }
+        catch (Exception ex) {
+            // 保存した注文状態は取り消さない
+            _logger.LogWarning(ex, "状態更新の通知に失敗");
+        }
+        
         return RedirectToAction(nameof(Index)); // 一覧へ戻る
     }
 }
