@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SelfOrderSystem.Data;
 using SelfOrderSystem.Services;
+using SelfOrderSystem.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,7 @@ builder.Services.AddHttpContextAccessor(); // Controller 以外のクラスからHttpCon
 builder.Services.AddScoped<CartService>(); // CartService をDI へ登録しControllerで受け取れるようにする
 
 builder.Services.AddScoped<IOrderService, OrderService>();  //サービス層を作成したことによる追加
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -56,5 +58,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<StaffOrdersHub>("/staffOrdersHub");
 
 app.Run();
