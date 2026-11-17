@@ -9,5 +9,7 @@ public class MenuViewModel {
 
     public int CartItemCount { get; set; } // カート内の合計数量（種類数ではない）
     public decimal CartTotal { get; set; } // カート合計金額
+                                           // カート内の商品一覧
+    public List<CartItem> CartItems { get; set; } = new();
 }
 

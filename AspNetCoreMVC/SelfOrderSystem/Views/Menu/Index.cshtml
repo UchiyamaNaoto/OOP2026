@@ -77,36 +77,80 @@
     </div>
 
     @* 右側 カード概要 *@
+
+    @* 右側 カートの商品一覧 *@
     <div class="col-12 col-lg-3">
+
         <aside class="card so-cart-sidebar">
             <div class="card-body">
-                <h2 class="h5">カート</h2>
 
-                <p>@Model.CartItemCount 点</p>
+                <h2 class="h5">
+                    ご注文カート
+                </h2>
 
-                <p class="fw-bold">
-                    合計 @Model.CartTotal.ToString("N0")円
-                </p>
+                @* カートが空の場合 *@
+                @if (Model.CartItems.Count == 0) {
+                    <p class="text-muted">
+                        カートは空です
+                    </p>
+                } else {
+                    @* カート内の商品を表示 *@
+                    @foreach (var item in Model.CartItems) {
+                        <div class="so-cart-item">
 
-                <a asp-controller="Cart" asp-action="Index" 
-                    class="btn btn-primary w-100">
-                    カートを確認
+                            @* 商品写真 *@
+                            @if (!string.IsNullOrWhiteSpace(item.ImagePath)) {
+                                <img src="@Url.Content(item.ImagePath)"
+                                     alt="@item.ProductName"
+                                     class="so-cart-photo"
+                                     loading="lazy" />
+                            } else {
+                                <div class="so-cart-photo-empty">
+                                    写真なし
+                                </div>
+                            }
+
+                            @* 商品情報 *@
+                            <div class="so-cart-info">
+
+                                <strong>
+                                    @item.ProductName
+                                </strong>
+
+                                <small>
+                                    @item.UnitPrice.ToString("N0") 円
+                                    × @item.Quantity
+                                </small>
+
+                                <span class="fw-bold">
+                                    @item.LineTotal.ToString("N0") 円
+                                </span>
+
+                            </div>
+                        </div>
+                    }
+
+                    @* 合計金額 *@
+                    <div class="so-cart-total">
+                        <span>
+                            合計 @Model.CartItemCount 点
+                        </span>
+                        <strong>
+                            @Model.CartTotal.ToString("N0") 円
+                        </strong>
+                    </div>
+                }
+
+                @* カート画面へのリンク *@
+                <a asp-controller="Cart"
+                   asp-action="Index"
+                   class="btn btn-primary w-100 mt-3">
+                    カートを確認する
                 </a>
+
             </div>
         </aside>
+
     </div>
+
 </div>
-
-
-
-
-
-
-@* カートに商品があるときだけ合計数量・合計金額・リンクを表示する *@
-@if (Model.CartItemCount > 0) {
-    <div class="alert alert-dark mt-3 d-flex justify-content-between align-items-center">
-        <span>@Model.CartItemCount 点 / @Model.CartTotal.ToString("N0") 円</span>
-        <a class="btn btn-light" asp-controller="Cart" asp-action="Index">カートを見る</a>
-    </div>
-}
-

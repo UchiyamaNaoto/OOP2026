@@ -6,5 +6,6 @@ public class CartItem {
     public string ProductName { get; set; } = string.Empty; // 商品名
     public decimal UnitPrice { get; set; }                  // 単価
     public int Quantity { get; set; }                       // 数量
+    public string? ImagePath { get; set; }                  // 商品写真のパス
     public decimal LineTotal => UnitPrice * Quantity;       // 小計
 }

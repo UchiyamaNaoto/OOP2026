@@ -31,7 +31,9 @@ public class CartService // カート操作をまとめるクラス
                 ProductId = product.Id,
                 ProductName = product.Name,
                 UnitPrice = product.Price,
-                Quantity = 1
+                Quantity = 1,
+                // 商品に設定されている写真のパスも保存
+                ImagePath = product.ImagePath
             });
         } else {
             item.Quantity++; // 既存商品なら数量だけ1 増やす
