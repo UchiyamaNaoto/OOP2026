@@ -15,12 +15,6 @@
     </div>
 }
 
-@foreach (var item in Model.Items) {
-    <div class="d-flex justify-content-between border-bottom py-2">
-        <span>@item.Product?.Name × @item.Quantity</span>
-        <span>@item.LineTotal.ToString("N0") 円</span>
-    </div>
-}
 @* 注文状況画面の操作ボタン *@
 <div class="d-flex flex-wrap gap-2 mt-4">
     <a asp-controller="Menu" asp-action="Index"
