@@ -15,7 +15,7 @@ builder.Services.AddControllersWithViews();
 
 // 追加
 builder.Services.AddDbContext<AppDbContext>(
-        options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+        options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
 /////////
 
@@ -34,7 +34,7 @@ builder.Services.AddSignalR();
 
 
 // スタッフのパスワード照合用のサービス
-builder.Services.AddScoped<IPasswordHasher<StaffUser>,PasswordHasher<StaffUser>>();
+builder.Services.AddScoped<IPasswordHasher<StaffUser>, PasswordHasher<StaffUser>>();
 
 // Cookie を使ったログイン方式を登録
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -50,11 +50,15 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // 追加
-if (app.Environment.IsDevelopment()) {
-    using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    await SeedData.InitializeAsync(db);
-}
+//if (app.Environment.IsDevelopment()) {
+//    using var scope = app.Services.CreateScope();
+//    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+//    await SeedData.InitializeAsync(db);
+//}
+using var scope = app.Services.CreateScope();
+var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+await SeedData.InitializeAsync(db);
+
 /////////
 ///
 // Configure the HTTP request pipeline.
