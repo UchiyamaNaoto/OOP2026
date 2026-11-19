@@ -54,8 +54,12 @@
 
             @foreach (var order in Model) {
                 // 注文全体の合計金額
-                var total = order.Items.Sum(
-                i => i.UnitPrice * i.Quantity);
+                var total = order.Items.Sum(i => i.UnitPrice * i.Quantity);
+
+                // 注文日時を日本時間へ変換
+                var japanTime = TimeZoneInfo.ConvertTime(
+                                        order.OrderedAtUtc,
+                                        TimeZoneInfo.FindSystemTimeZoneById("Tokyo Standard Time"));
 
                 <article class="staff-order-card">
 
@@ -72,10 +76,11 @@
                                     注文 #@order.Id
                                 </div>
 
+
                                 <time class="staff-order-time">
-                                    @order.OrderedAtUtc.ToLocalTime()
-                                    .ToString("yyyy/MM/dd HH:mm")
+                                    @japanTime.ToString("yyyy/MM/dd HH:mm")
                                 </time>
+
                             </div>
                         </div>
 
@@ -161,9 +166,13 @@
             window.location.reload();
         });
         // 再接続後も表示内容を更新する
-        staffConnection.onreconnected(() => window.location.reload());
-        staffConnection.start().catch(error => {
-            console.error("店舗SignalR 接続エラー", error);
+        staffConnection.onreconnected(async () => {
+            await staffConnection.invoke("JoinStaff");
+            window.location.reload();
         });
+
+        staffConnection.start()
+            .then(() => staffConnection.invoke("JoinStaff"))
+            .catch(error => console.error("店舗SignalR 接続エラー", error));
     </script>
 }
